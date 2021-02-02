@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "start": "cd ./src && node index.js"
+  },
+  "license": "MIT",
+}
