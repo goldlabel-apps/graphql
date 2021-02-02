@@ -2,13 +2,13 @@
 
 ## Best Practices
 
-Following are brief descriptions of some of the more common best practices and opinionated stances held by GraphQL services, however each article in this section will go into more depth on these and other topics.
+> Following are brief descriptions of some of the more common best practices and opinionated stances held by GraphQL services, however each article in this section will go into more depth on these and other topics.
 
-- Single HTTP endpoint
+### Single HTTP endpoint
 
 GraphQL is typically served over HTTP via a single endpoint which expresses the full set of capabilities of the service. This is in contrast to REST APIs which expose a suite of URLs each of which expose a single resource. While GraphQL could be used alongside a suite of resource URLs, this can make it harder to use with tools like GraphiQL
 
-- JSON (with GZIP)
+### JSON (with GZIP)
 
 GraphQL services typically respond using JSON, however the GraphQL spec does not require it. JSON may seem like an odd choice for an API layer promising better network performance, however because it is mostly text, it compresses exceptionally well with GZIP.
 
@@ -20,7 +20,7 @@ Accept-Encoding: gzip
 
 JSON is also very familiar to client and API developers, and is easy to read and debug. In fact, the GraphQL syntax is partly inspired by the JSON syntax
 
-- Versioning
+### Versioning
 
 While there's nothing that prevents a GraphQL service from being versioned just like any other REST API, GraphQL takes a strong opinion on avoiding versioning by providing the tools for the continuous evolution of a GraphQL schema.
 
@@ -29,7 +29,7 @@ Why do most APIs version? When there's limited control over the data that's retu
 In contrast, GraphQL only returns the data that's explicitly requested, so new capabilities can be added via new types and new fields on those types without creating a breaking change. This has led to a common practice of always avoiding breaking changes and serving a versionless API.
 
 
-- Nullability
+### Nullability
 
 Most type systems which recognise "null" provide both the common type and the nullable version of that type, whereby default types do not include "null" unless explicitly declared. However, in a GraphQL type system, every field is nullable by default. This is because there are many things that can go awry in a networked service backed by databases and other services. A database could go down, an asynchronous action could fail, an exception could be thrown. Beyond simply system failures, authorization can often be granular, where individual fields within a request can have different authorization rules.
 
@@ -37,7 +37,7 @@ By defaulting every field to nullable, any of these reasons may result in just t
 
 When designing a GraphQL schema, it's important to keep in mind all the problems that could go wrong and if "null" is an appropriate value for a failed field. Typically it is, but occasionally, it's not. In those cases, use non-null types to make that guarantee.
 
-- Pagination
+### Pagination
 
 The GraphQL type system allows for some fields to return lists of values, but leaves the pagination of longer lists of values up to the API designer. There are a wide range of possible API designs for pagination, each of which has pros and cons.
 
@@ -45,9 +45,13 @@ Typically fields that could return long lists accept arguments "first" and "afte
 
 Ultimately designing APIs with feature-rich pagination led to a best practice pattern called "Connections". Some client tools for GraphQL, such as Relay, know about the Connections pattern and can automatically provide automatic support for client-side pagination when a GraphQL API employs this pattern.
 
-- Server-side Batching & Caching
+### Server-side Batching & Caching
 
 GraphQL is designed in a way that allows you to write clean code on the server, where every field on every type has a focused single-purpose function for resolving that value. However without additional consideration, a naive GraphQL service could be very "chatty" or repeatedly load data from your databases.
 
 This is commonly solved by a batching technique, where multiple requests for data from a backend are collected over a short period of time and then dispatched in a single request to an underlying database or microservice by using a tool like Facebook's DataLoader.
 
+
+#### Tags/Keywords
+
+Best Practices, Server-side, Batching, Caching, Pagination, Nullability, Versioning, API, endpoints, HTTP, 
