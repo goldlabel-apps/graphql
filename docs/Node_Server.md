@@ -1,6 +1,6 @@
 ![Cannastore](./media/graphql_logo.png)
 
-## Node Server
+## Setup a local Node Server
 
 > The reference implementation of the GraphQL specification, designed for running GraphQL in a Node.js environment.
 
@@ -13,13 +13,12 @@
 The server can be implented in many ways. Let's make an express server. Why not?
 
 ```bash
-cd <your-working-directory>
+cd <your-project-directory>
 mkdir src && cd src
 npm init
 npm install express express-graphql graphql
 touch index.js
 ```
-
 __src/index.js__
 
 ```javascript
@@ -52,4 +51,4 @@ app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
 
 #### Tags/Keywords
 
-Node, ServerThe reference implementation of the GraphQL specification, designed for running GraphQL in a Node.js environment.
+node, express, express-graphql, schema, npm
